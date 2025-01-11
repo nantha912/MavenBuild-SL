@@ -2,15 +2,47 @@ name: CICD pipline with maven and jenkins
 on: [push, workflow_dispatch]
 jobs:
   CICDjob:
-  runs-on: ubuntu-latest
+   runs-on: ubuntu-latest
    steps:
-     -name: clone the repo on ubuntu server
+    - name: clone the repo on ubuntu server
       uses: actions/checkout@v4
-     -name: install java and maven on ubuntu server
-      uses: uses: actions/setup-java@v3
+    - name: install java and maven on ubuntu server
+      uses: actions/setup-java@v3
       with: 
-        java-version: 11
-        cache: 'maven'
-        distribution: 'temurin'
+       java-version: 11
+       cache: 'maven'
+       distribution: 'temurin'
+    - name: Build the source code and .war file
+      run: mvn package
+    - name: connect to lab and depoloy code on tomcat9
+      uses: cross-the-world/ssh-scp-ssh-pipelines@latest
+      with:
+       host: '3.109.48.70'
+       port: 22
+       user: 'labuser'
+       pass: 'Nuvelabs123$'
+       connect_timeout: 10s
+       first_ssh: |
+        sudo chmod 777 /var/lib/tomcat9/webapps
+       scp: |
+        './target/*.war' => /var/lib/tomcat9/webapps
+       last_ssh: |
+         sudo systemctl restart tomcat9
+    - name: Connect to lab and deploy code on tomcat9
+      uses: cross-the-world/ssh-scp-ssh-pipeline@latest
+      with:
+       host: '3.109.48.70'
+       port: 22
+       user: 'labuser'
+       pass: 'Nuvelabs123$'
+       connect_timeout: 10s
+       fird_ssh: |
+        sudo curl -l -u admin:115593825ca2975f5fdd181a936862d4db 
+        http://localhost:8080/job/DeploymentJob/build?token=token22
+       
+       
+         
+         
+       
         
      
