@@ -1,0 +1,16 @@
+name: CICD pipline with maven and jenkins
+on: [push, workflow_dispatch]
+jobs:
+  CICDjob:
+  runs-on: ubuntu-latest
+   steps:
+     -name: clone the repo on ubuntu server
+      uses: actions/checkout@v4
+     -name: install java and maven on ubuntu server
+      uses: uses: actions/setup-java@v3
+      with: 
+        java-version: 11
+        cache: 'maven'
+        distribution: 'temurin'
+        
+     
