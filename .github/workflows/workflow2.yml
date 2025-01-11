@@ -14,7 +14,7 @@ jobs:
        distribution: 'temurin'
     - name: Build the source code and .war file
       run: mvn package
-    - name: connect to lab and trigger jenkins job to depoloy code on tomcat9
+    - name: Connect to lab and deploy code on tomcat9 
       uses: cross-the-world/ssh-scp-ssh-pipelines@latest
       with:
        host: '3.109.48.70'
@@ -28,7 +28,7 @@ jobs:
         './target/*.war' => /var/lib/tomcat9/webapps
        last_ssh: |
          sudo systemctl restart tomcat9
-    - name: Connect to lab and deploy code on tomcat9
+    - name: connect to lab and trigger jenkins job to depoloy code on tomcat9
       uses: cross-the-world/ssh-scp-ssh-pipelines@latest
       with:
        host: '3.109.48.70'
