@@ -29,7 +29,7 @@ jobs:
        last_ssh: |
          sudo systemctl restart tomcat9
     - name: Connect to lab and deploy code on tomcat9
-      uses: cross-the-world/ssh-scp-ssh-pipeline@latest
+      uses: cross-the-world/ssh-scp-ssh-pipelines@latest
       with:
        host: '3.109.48.70'
        port: 22
