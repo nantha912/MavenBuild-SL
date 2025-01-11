@@ -14,7 +14,7 @@ jobs:
        distribution: 'temurin'
     - name: Build the source code and .war file
       run: mvn package
-    - name: connect to lab and depoloy code on tomcat9
+    - name: connect to lab and trigger jenkins job to depoloy code on tomcat9
       uses: cross-the-world/ssh-scp-ssh-pipelines@latest
       with:
        host: '3.109.48.70'
